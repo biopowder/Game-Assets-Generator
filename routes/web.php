@@ -14,3 +14,6 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('generator', 'GeneratorController@index')->name('index');
+Route::post('process', 'GeneratorController@process')->name('process');
