@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Generator\Generator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Session;
 
 class GeneratorController extends Controller {
 
-    public function index() {
+    public function index()
+    {
         if (!Session::has('uid')) {
             Session::put('uid', uniqid());
         }
@@ -23,8 +25,12 @@ class GeneratorController extends Controller {
         return view('generator', $data);
     }
 
-    public function process(Request $request) {
-        dd($request->all());
+    /**
+     * @param Request $request
+     */
+    public function process(Request $request)
+    {
+        (new Generator())->generate($request);
     }
 
 }

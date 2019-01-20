@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Generator;
+namespace App\Common;
 
 class Color {
 
@@ -8,28 +8,32 @@ class Color {
      * Color constructor.
      * @param $hex
      */
-    public function __construct($hex) {
+    public function __construct($hex)
+    {
         $this->hexTo100($hex);
     }
 
     /**
      * @return mixed
      */
-    public function getRed() {
+    public function getRed()
+    {
         return $this->red;
     }
 
     /**
      * @return mixed
      */
-    public function getGreen() {
+    public function getGreen()
+    {
         return $this->green;
     }
 
     /**
      * @return mixed
      */
-    public function getBlue() {
+    public function getBlue()
+    {
         return $this->blue;
     }
 
@@ -37,7 +41,8 @@ class Color {
     private $green;
     private $blue;
 
-    private function hexTo100($hex) {
+    private function hexTo100($hex)
+    {
         $this->red = round((hexdec(substr($hex, 1, 2)) * 100) / 255) - 100;
         $this->green = round((hexdec(substr($hex, 3, 2)) * 100) / 255) - 100;
         $this->blue = round((hexdec(substr($hex, 5, 2)) * 100) / 255) - 100;
