@@ -2,7 +2,7 @@
 
 namespace App\Generator;
 
-use App\Common\AtlasSettings;
+use App\Common\CanvasSettings;
 use App\Common\Icon;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Session;
@@ -15,18 +15,21 @@ class ButtonGenerator {
     private $icon_settings;
     private $buttons;
 
-    public function __construct(AtlasSettings $settings, Icon $icon_settings)
+    /**
+     * ButtonGenerator constructor.
+     * @param CanvasSettings $settings
+     * @param Icon $icon_settings
+     */
+    public function __construct(CanvasSettings $settings, Icon $icon_settings)
     {
         $this->settings = $settings;
         $this->icon_settings = $icon_settings;
         $this->collectButtons();
     }
 
-    public function getButtons(): array
-    {
-        return $this->buttons;
-    }
-
+    /**
+     *
+     */
     public function collectButtons()
     {
         $files = File::allFiles(base_path('buttons/icons'));
@@ -35,6 +38,10 @@ class ButtonGenerator {
         }
     }
 
+    /**
+     * @param $file
+     * @return mixed
+     */
     public function composeFromFile($file)
     {
         $img = Image::canvas($this->settings->getButtonWidth(), $this->settings->getButtonHeight());
@@ -54,6 +61,14 @@ class ButtonGenerator {
 
         $img->save(Storage::path('stock/' . Session::get('uid') . '/parts/' . $file->getFileName()));
         return $img;
+    }
+
+    /**
+     * @return array
+     */
+    public function getButtons(): array
+    {
+        return $this->buttons;
     }
 
 }

@@ -5,10 +5,15 @@ namespace App\Http\Controllers;
 use App\Generator\Generator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 
 class GeneratorController extends Controller {
 
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function index()
     {
         if (!Session::has('uid')) {
@@ -27,10 +32,12 @@ class GeneratorController extends Controller {
 
     /**
      * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function process(Request $request)
     {
         (new Generator())->generate($request);
+        return Redirect::back()->withInput(Input::all());
     }
 
 }
